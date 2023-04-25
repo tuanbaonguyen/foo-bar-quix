@@ -1,0 +1,11 @@
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <form class="form-group" [formGroup]="convertForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="inputNumber"><b>Number to convert</b></label>
+        <input class="form-control ng-untouched ng-pristine ng-valid" type = "number" id="inputNumber" formControlName = "inputNumber" placeholder = "inputNumber" required>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" [disabled]="convertForm.invalid" type="submit">Convert</button>
+      </div>
+    </form>
+</div>
