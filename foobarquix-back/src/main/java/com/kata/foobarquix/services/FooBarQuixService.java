@@ -6,6 +6,9 @@ import org.springframework.util.StringUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Character.getNumericValue;
+import static java.util.stream.Collectors.joining;
+
 @Service
 public class FooBarQuixService {
     private final static Map<Integer, String> encodingDivisibles;
@@ -15,7 +18,6 @@ public class FooBarQuixService {
     private final static String QUIX = "Quix";
 
     static {
-
         encodingDivisibles = new HashMap<>();
         encodingApparences = new HashMap<>();
 
@@ -30,30 +32,19 @@ public class FooBarQuixService {
 
     public String convertNumber(int inputNumber) {
         StringBuilder sb = new StringBuilder();
-        encodingDivisibles.forEach((k,v) -> {
-            if (inputNumber % k == 0) {
-                sb.append(v);
-            }
-        });
+
+        sb.append(encodingDivisibles.keySet().stream()
+                .filter(toReplace -> inputNumber % toReplace == 0)
+                .map(encodingDivisibles::get)
+                .collect(joining()));
 
         final String inputAsString = String.valueOf(inputNumber);
 
-        for (int i = 0; i < inputAsString.length(); i++) {
+        sb.append(inputAsString.chars()
+                .mapToObj(integerAsChar -> encodingApparences.getOrDefault(getNumericValue(integerAsChar), ""))
+                .collect(joining()));
 
-            final char digit = inputAsString.charAt(i);
-
-            final String digitAsString = String.valueOf(digit);
-
-            final Integer key = Integer.valueOf(digitAsString);
-
-            if (encodingApparences.containsKey(key)) {
-                sb.append(encodingApparences.get(key));
-            }
-        }
-
-        if (StringUtils.isEmpty(sb.toString()))
-            return String.valueOf(inputNumber);
-
-        return sb.toString();
+        String result = sb.toString();
+        return result.isEmpty()? inputAsString : result;
     }
 }
