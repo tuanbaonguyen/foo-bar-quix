@@ -18,7 +18,6 @@ public class FooBarQuixController {
 
     @GetMapping("/{inputNumber}")
     public ResultDTO convertNumber(@PathVariable("inputNumber") int inputNumber) {
-        System.out.println("Received " + inputNumber);
         return new ResultDTO(fooBarQuixService.convertNumber(inputNumber));
     }
 }
