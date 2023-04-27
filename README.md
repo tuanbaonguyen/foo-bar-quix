@@ -21,7 +21,7 @@ Les logiciels suivants doivent être installés sur votre machine :
   ```bash
   ng serve
   ```
-  - Si l'on a une erreur ERR_OSSL_EVP_UNSUPPORTED with ng serve, execute this command then re-execute ng serve :
+  - Si l'on a une erreur ERR_OSSL_EVP_UNSUPPORTED avec ng serve, execute cette commande puis réexecute ng serve :
   ```bash
   export NODE_OPTIONS=--openssl-legacy-provider
   ```
